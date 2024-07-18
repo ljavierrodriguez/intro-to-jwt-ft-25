@@ -94,7 +94,10 @@ def login():
     access_token = create_access_token(identity=user.id, expires_delta=expire_at)
 
     return jsonify({
-        "access_token": access_token
+        "status": "success",
+        "message": "Login successfully",
+        "access_token": access_token,
+        "currentUser": user.serialize()
     }), 200
 
 
@@ -136,7 +139,11 @@ def update_profile():
     user.profile.linkedin = linkedin
     user.update()
         
-    return jsonify(user.profile.serialize_full_info()), 200
+    return jsonify({
+        "status": "success", 
+        "message": "Profile updated successfully!", 
+        "profile": user.profile.serialize_full_info()
+    }), 200
 
 
 if __name__ == '__main__':
